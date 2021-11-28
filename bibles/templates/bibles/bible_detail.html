@@ -1,0 +1,13 @@
+{% extends 'bibles/base.html' %}
+
+{% block content %}
+    <div class="bible">
+        {% if bible.published_date %}
+            <div class="date">
+                {{ bible.published_date }}
+            </div>
+        {% endif %}
+        <h1>{{ bible.title }}</h1>
+        <p>{{ bible.text|linebreaksbr }}</p>
+    </div>
+{% endblock %}
