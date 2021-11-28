@@ -7,6 +7,9 @@
                 {{ bible.published_date }}
             </div>
         {% endif %}
+        {% if user.is_authenticated %}
+        <a class="btn btn-default" href="{% url 'bible_edit' pk=bible.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        {% endif %}
         <h1>{{ bible.title }}</h1>
         <p>{{ bible.text|linebreaksbr }}</p>
     </div>
