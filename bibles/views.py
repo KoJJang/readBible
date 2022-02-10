@@ -20,8 +20,8 @@ def bible_list(request):#TODO:: verse 선택 시 select의 verse 수정
             'all_title': bibleList.titles_ko,
             'selected_title': selected_title,
             'selected_chapter': selected_chapter,
-            'start_verse': start_verse,
-            'end_verse': end_verse,
+            # 'start_verse': start_verse,
+            # 'end_verse': end_verse,
             'all_chapter': range(1,bibleList.chapters_num[int(selected_title)-1]+1),
         }
         if start_verse == "1" and end_verse == "1":
@@ -34,10 +34,7 @@ def bible_list(request):#TODO:: verse 선택 시 select의 verse 수정
         context = {
             'all_title': bibleList.titles_ko,
             'all_chapter': range(1,bibleList.chapters_num[0]+1),
-            'selected_chapter': 1,
-            'start_verse': 1,
-            'end_verse':1,
-            'tmp': bibleList.titles_ko
+            'selected_chapter': 1
         }
         isVerseSelected = False
     con = sqlite3.connect('bible2.db')
@@ -51,7 +48,7 @@ def bible_list(request):#TODO:: verse 선택 시 select의 verse 수정
         all_verse += 1
     if isVerseSelected:
         whe = []
-        cmd = 'SELECT * FROM bible2 where long_label=="'+ bibleList.titles_ko[int(selected_title)-1] +'" AND chapter=='+ str(selected_chapter) +' AND paragraph>='+start_verse+' AND paragraph<='+end_verse
+        cmd = 'SELECT * FROM bible2 where long_label=="'+ bibleList.titles_ko[int(selected_title)-1] +'" AND chapter=='+ str(selected_chapter) +' AND paragraph>=1 AND paragraph<=300'
         for row in cur.execute(cmd):
             whe.append(str(row[5]))
     context['whe'] = whe

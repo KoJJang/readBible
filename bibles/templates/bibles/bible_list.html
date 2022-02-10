@@ -23,41 +23,18 @@
                 {% endif %}
             {% endfor %}
         </select>
-        장
-        <select name="start_verse">
-            {% for ver in all_verse %}
-                {% if start_verse == forloop.counter|slugify %}
-                    <option value="{{ ver }}" selected>{{ ver }}</option>
-                {% else %}
-                    <option value="{{ ver }}">{{ ver }}</option>
-                {% endif %}
-            {% endfor %}
-        </select>
-        절 부터
-        <select name="end_verse">
-            {% for ver in all_verse %}
-                {% if end_verse == forloop.counter|slugify %}
-                    <option value="{{ ver }}" selected>{{ ver }}</option>
-                {% else %}
-                    <option value="{{ ver }}">{{ ver }}</option>
-                {% endif %}
-            {% endfor %}
-        </select>
-        절 까지
-        
-        <!-- <button type="button">보기</button>  -->
+        장        
         <a class="button_form">
-            <input type="submit" class="button_left" value="미리보기">
-            <input type="submit" class="button_right" value="PPT 만들기">
+            <input type="submit" class="button_left" value="이동">
         </a>
     </form>
     
     <span class="script_span">
         {% for line in whe %}
             {{ forloop.counter }}절
-            <div contenteditable="true" type="text" class="script_font">{{ line }}</div>
+            <div contenteditable="true" type="text" class="script_font" tabindex="-1">{{ line }}</div>
             <!-- <textarea name="MSG" class="script_font" type="text" id="script_font" onkeydown="resize(this)" onkeyup="resize(this)" onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"' disabled>{{ line }}</textarea> -->
-            <input class="type_font" type="text" id="inputtext" onkeydown="next(this)">
+            <input class="type_font" type="text" id="inputtext" onkeydown="next('{{ all_chapter }}')">
             <br></br>
         {% endfor %}
         <!-- <textarea name="MSG" class="script_font" id="script_font">{{ whe }}</textarea>
@@ -85,11 +62,9 @@
             myta.height(boxWidth*0.75);
         });
          
-        function next(ele) {
+        function next(lim) {
             // alert(document.getElementById("inputtext").value)
             if(event.key == 'Enter' ) {
-                // alert(ele.value);
-                // alert(ele.id);
                 // alert(document.getElementById("inputtext").nextElementSibling);
                 // Cross-browser handling for our dear friend @MaxArt :p
                 var evt = event || window.event,
@@ -97,6 +72,13 @@
                 // Find the next input
                     nextInput = target.nextElementSibling;
                 var tbox = target.previousElementSibling;
+
+                // 마지막 띄워쓰기 있는 경우 제거
+                if (tbox.textContent.slice(-1) == " "){
+                    tbox.textContent = tbox.textContent.slice(0,-1);
+                }
+
+                // 입력값과 본문이 다른경우
                 if ( target.value != tbox.textContent ){
                     var txt = tbox.textContent,
                         newText = "";
@@ -111,6 +93,9 @@
                     tbox.innerHTML = newText;
                     return false;
                 }
+                else {
+                    tbox.innerHTML = tbox.textContent.fontcolor("blue");
+                }
                 while ( nextInput.tagName !== 'INPUT' && nextInput.nextElementSibling) {
                     nextInput = nextInput.nextElementSibling;
                 }
@@ -118,9 +103,24 @@
                 // And focus it
                 
                 nextInput.focus();
-
                 // Finally, disable submitting IF there is no input after
-                if ( nextInput !== this.elements[ this.elements.length - 1 ] ) {
+                var allInputs = document.getElementsByTagName("input");
+
+                // 마지막 장인 경우
+                if (tbox.textContent == allInputs[allInputs.length - 1].value) {
+                    // lastChap = 성경의 마지막 장
+                    // cur = 현재 장
+                    var lastChap = lim.split(",")[1].slice(0,-1),
+                        cur = document.getElementById("chapter").value;
+                    // lastChap = lastChap.substring(0,lastChap.length-1);
+                    lastChap = Number(lastChap) - 1;
+                    if (lastChap == cur){
+                        window.confirm("마지막 장입니다.\n 다음으로 넘어가시겠습니까?");
+                    }
+                    else if (window.confirm("다음 장으로 넘어가시겠습니까?")) {
+                        document.getElementById("chapter").value = 1 + Number(document.getElementById("chapter").value);
+                        chapterFunc(document);
+                    }
                     return false;
                 }
             }

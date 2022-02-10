@@ -3,6 +3,7 @@
     /* background-color: white; */
     color:ivory;
     padding: 5px;
+    align-content: center;
 }
 
 .button_form button:hover{
