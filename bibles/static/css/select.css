@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css?family=Germania+One");
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+select { 
+    width: 80px;
+    padding:5px;
+    border:1px solid #999;
+    /* font-family:'Nanumgothic'; */
+    /* font-family: 'Germania One'; */
+    background:url('./arrow.jpg') no-repeat 95% 50%;
+    border-radius:3px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance : none;
+}
+
+/* IE 10, 11의 네이티브 화살표 숨기기 */ 
+select::-ms-expand {
+    display: none; 
+}
+
+.select_form {
+    font-family: 'Hi Melody', cursive, bold;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.script_font {
+    position: relative;
+    /* color: white; */
+    font-family: 'Nanum Gothic', sans-serif;
+    /* font-family: 'Hi Melody', cursive, bold; */
+    /* padding-top: 3%; */
+    font-size: 20px;
+    line-height: 120%;
+    /* border-radius: 3px; */
+    /* border: 1px solid #0b3368; */
+    /* background-color: black;
+    background-image: url("./night_lake.jpg"); */
+    width: 100%;
+    /* height: 35px; */
+    height: 35px;
+    resize: none;
+    overflow: hidden;
+}
+
+.type_font {
+    position: relative;
+    color: white;
+    font-family: 'Nanum Gothic', sans-serif;
+    /* font-family: 'Hi Melody', cursive, bold; */
+    /* padding-top: 3%; */
+    font-size: 30px;
+    line-height: 100%;
+    border-radius: 30px;
+    border: 1px solid rgba(66, 61, 61, 0.356);
+    background-color: rgba(66, 61, 61, 0.356);
+    width: 100%;
+    height: 35px;
+    resize: none;
+}
+
+.script_span {
+    width: 100%;
+}
+
+.bible_header {
+    background-color: #0b3368;
+    margin-top: 0;
+    padding: 20px 20px 20px 20px;
+    text-align: center;
+    background-image: url("./night_lake.jpg");
+}
+
+.bible_header_font {
+    color:azure !important;
+    font-family: 'Hi Melody', cursive;
+    /* font-family: 'Nanum Gothic', sans-serif; */
+    font-size: 60px;
+    text-decoration-line: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color:azure;
+}
+/* 
+textarea{ 
+    resize: none; 
+    padding: 10px 10px 10px 10px;
+    width: 100%;
+    height: 90%;
+    background-image: "./night_lake.jpg";
+
+} */

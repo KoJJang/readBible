@@ -1,26 +1,29 @@
 {% load static %}
 <html>
     <head>
-        <title>Django Girls blog</title>
-        <!-- <link rel="stylesheet" href="{% static 'css/main.css' %}"> -->
+        <title>성경 타자 연습</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static 'css/main.css' %}">
-        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}?ver=30">
+        <link rel="stylesheet" href="{% static 'css/select.css' %}?ver=34">
+        <link rel="stylesheet" href="{% static 'css/button.css' %}?ver=30">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">        
+        <link href="http://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Syongsyong.woff" rel="stylesheet">
     </head>
     <body>
-        <div class="page-header">
-            {% if user.is_authenticated %}
-            <a href="{% url 'bible_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-            <h1><a href="/">Jangssy's bible</a></h1>
-            {% endif %}
+        <div class="bible_header">
+            <a href="/" class="bible_header_font">성경 타자 연습</a>
         </div>
-        <div class="content container">
+        <div class="content_frame">
             <div class="row">
-                <div class="col-md-8">
+                <!-- <div class="col-md-8"> -->
                     {% block content %}
                     {% endblock %}
-                </div>
+                <!-- </div> -->
             </div>
         </div>
     </body>

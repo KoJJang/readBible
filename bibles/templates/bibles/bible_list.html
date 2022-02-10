@@ -1,13 +1,135 @@
 {% extends 'bibles/base.html' %}
 
 {%block content %}
-    {% for bible in bibles %}
-        <div class="bible">
-            <div class="date">
-                <p>published: {{ bible.published_date }}</p>
-            </div>
-            <h1><a href="{% url 'bible_detail' pk=bible.pk %}">{{ bible.title }}</a></h1>
-            <p>{{ bible.text|linebreaksbr }}</p>
-        </div>
-    {% endfor %}
+    <form action="{% url 'title_selected' %}" method="post" name="bible_form" id="bible_form" class="select_form">
+        {% csrf_token %}
+        <select name="title" id="title" onchange="titleFunc(this.value)" style="width: 150px;">
+        <!-- <select name="title" onchange="alert(this.value)"> -->
+            {% for title in all_title %}
+                {% if selected_title == forloop.counter|slugify %}
+                    <option value={{ forloop.counter }} selected>{{ title }}</option>
+                {% else %}
+                    <option value={{ forloop.counter }} >{{ title }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+
+        <select name="chapter" id="chapter" onchange="chapterFunc(this.value)">
+            {% for chp in all_chapter %}
+                {% if selected_chapter == forloop.counter|slugify %}
+                <option value={{ chp }} selected>{{ chp }}</option>
+                {% else %}
+                <option value={{ chp }}>{{ chp }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        장
+        <select name="start_verse">
+            {% for ver in all_verse %}
+                {% if start_verse == forloop.counter|slugify %}
+                    <option value="{{ ver }}" selected>{{ ver }}</option>
+                {% else %}
+                    <option value="{{ ver }}">{{ ver }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        절 부터
+        <select name="end_verse">
+            {% for ver in all_verse %}
+                {% if end_verse == forloop.counter|slugify %}
+                    <option value="{{ ver }}" selected>{{ ver }}</option>
+                {% else %}
+                    <option value="{{ ver }}">{{ ver }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        절 까지
+        
+        <!-- <button type="button">보기</button>  -->
+        <a class="button_form">
+            <input type="submit" class="button_left" value="미리보기">
+            <input type="submit" class="button_right" value="PPT 만들기">
+        </a>
+    </form>
+    
+    <span class="script_span">
+        {% for line in whe %}
+            {{ forloop.counter }}절
+            <div contenteditable="true" type="text" class="script_font">{{ line }}</div>
+            <!-- <textarea name="MSG" class="script_font" type="text" id="script_font" onkeydown="resize(this)" onkeyup="resize(this)" onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"' disabled>{{ line }}</textarea> -->
+            <input class="type_font" type="text" id="inputtext" onkeydown="next(this)">
+            <br></br>
+        {% endfor %}
+        <!-- <textarea name="MSG" class="script_font" id="script_font">{{ whe }}</textarea>
+        <input type="text" id="name" name="name"> -->
+    </span>
+    
+    <script type='text/javascript'>
+        // document.getElementById("title").addEventListener("change", titleFunc);
+        function titleFunc(val) {
+            // alert(val);
+            console.log(this.val);
+            document.getElementById("bible_form").submit()
+            // alert(val)
+            // document.bible_form.submit();
+        }
+        function chapterFunc(val) {
+            // alert(val);
+            console.log(this.val);
+            document.getElementById("bible_form").submit()
+        }
+        $(window).resize(function(){
+            var winWidth = $(window).width();
+            var myta = document.getElementById("script_font");       
+            var boxWidth = myta.width();
+            myta.height(boxWidth*0.75);
+        });
+         
+        function next(ele) {
+            // alert(document.getElementById("inputtext").value)
+            if(event.key == 'Enter' ) {
+                // alert(ele.value);
+                // alert(ele.id);
+                // alert(document.getElementById("inputtext").nextElementSibling);
+                // Cross-browser handling for our dear friend @MaxArt :p
+                var evt = event || window.event,
+                    target = evt.target || evt.srcElement,
+                // Find the next input
+                    nextInput = target.nextElementSibling;
+                var tbox = target.previousElementSibling;
+                if ( target.value != tbox.textContent ){
+                    var txt = tbox.textContent,
+                        newText = "";
+                    for (var i = 0; i < txt.length; i++){
+                        if ( target.value[i] != txt[i] ){
+                            newText += txt.charAt(i).fontcolor("red");
+                        }
+                        else{
+                            newText += txt.charAt(i).fontcolor("blue");
+                        }
+                    }
+                    tbox.innerHTML = newText;
+                    return false;
+                }
+                while ( nextInput.tagName !== 'INPUT' && nextInput.nextElementSibling) {
+                    nextInput = nextInput.nextElementSibling;
+                }
+                // nextInput = nextInput.nextElementSibling;
+                // And focus it
+                
+                nextInput.focus();
+
+                // Finally, disable submitting IF there is no input after
+                if ( nextInput !== this.elements[ this.elements.length - 1 ] ) {
+                    return false;
+                }
+            }
+        }
+
+        function resize(obj) {
+            obj.style.height = "1px";
+            obj.style.height = (12+obj.scrollHeight)+"px";
+        }
+
+    </script>
 {% endblock %}

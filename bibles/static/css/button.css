@@ -1,0 +1,26 @@
+.button_form{
+    border: 1px solid ivory;
+    /* background-color: white; */
+    color:ivory;
+    padding: 5px;
+}
+
+.button_form button:hover{
+    background-color: skyblue;
+}
+
+.button_left{
+    border: 1px solid ivory;
+    margin-right: -4px;
+    background-color:rgb(7, 7, 71);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.button_right{
+    border: 1px solid ivory;
+    margin-left: -3px;
+    background-color:rgb(7, 7, 71);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

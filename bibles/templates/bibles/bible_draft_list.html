@@ -1,0 +1,11 @@
+{% extends 'bibles/base.html' %}
+
+{% block content %}
+    {% for bible in bibles %}
+        <div class="post">
+            <p class="date">created: {{ bible.created_date|date:'d-m-Y' }}</p>
+            <h1><a href="{% url 'bible_detail' pk=bible.pk %}">{{ bible.title }}</a></h1>
+            <p>{{ bible.text|truncatechars:200 }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

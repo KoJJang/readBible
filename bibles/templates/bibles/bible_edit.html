@@ -6,4 +6,17 @@
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
+    
+    <textarea name="MSG" row=800 cols=160>{{ whe }}</textarea>
+
+    <!--
+    <center><object type="text/html" data=
+        "http://ibibles.net/quote.php?kor-mat/5:3-200"
+         width="800" height="160"></object></center>
+    --> 
+    <form action="/team_name_url/" method="post" >
+        <label for="team_name">enter name:</label>
+        <input id="team_name" type="text" name="name_field" value="Default name for team.">
+        <input type="submit" value="OK">
+    </form>
 {% endblock %}
