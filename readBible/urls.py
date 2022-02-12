@@ -20,4 +20,6 @@ urlpatterns = [
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
     path('', include('bibles.urls')),
+    path('qnadash/', include('qnadash.urls')),
+    path('common/', include('common.urls')),
 ]
